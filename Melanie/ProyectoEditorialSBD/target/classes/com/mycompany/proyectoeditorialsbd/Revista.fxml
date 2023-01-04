@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="342.0" prefWidth="689.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoeditorialsbd.RevistaController">
+   <children>
+      <TableView fx:id="tableView" layoutX="4.0" layoutY="65.0" prefHeight="270.0" prefWidth="685.0">
+        <columns>
+          <TableColumn id="columnCedula" fx:id="colNumeroRegistroRevista" prefWidth="126.0" text="N° registro de revista" />
+            <TableColumn id="columnNombre" fx:id="colIdSucursal" prefWidth="78.0" text="Id Sucursal" />
+            <TableColumn id="columnApellido" fx:id="colTipo" prefWidth="98.0" text="Tipo" />
+            <TableColumn id="columnCargo" fx:id="colPeriodicidad" prefWidth="123.0" text="Periodicidad" />
+            <TableColumn id="columnDireccion" fx:id="colTítulo" prefWidth="259.0" text="Título" />
+        </columns>
+      </TableView>
+      <Button fx:id="btningresarRevista" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#ingresarRevista" text="Insertar Revista" />
+      <Button fx:id="btnEditar" layoutX="138.0" layoutY="28.0" mnemonicParsing="false" onAction="#editarRevista" text="Editar Revista" />
+      <Button fx:id="btnEliminar" layoutX="274.0" layoutY="28.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar Fila" />
+      <Button fx:id="btnActualizar" layoutX="574.0" layoutY="28.0" mnemonicParsing="false" onAction="#actualizarTabla" text="Actualizar Tabla" />
+      <Label fx:id="lblEliminar" layoutX="379.0" layoutY="6.0" text="Ingrese id para eliminar:" />
+      <TextField fx:id="tfEliminar" layoutX="379.0" layoutY="28.0" prefHeight="25.0" prefWidth="175.0" />
+   </children>
+</AnchorPane>

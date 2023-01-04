@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoeditorialsbd.EditarPeriodistaController">
+   <children>
+      <GridPane layoutY="33.0" prefHeight="367.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="idPeriodistaExterno:">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="cedula:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="nombre:" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="apellido:" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="cargo:" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="direccion:" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="contrato:" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="fecha nacimiento:" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="edad:" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="salario:" GridPane.rowIndex="9">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="especialidad:" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="lblidPeriodista" GridPane.columnIndex="1" />
+            <TextField fx:id="lblCedula" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="lblNombre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="lblApellido" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="lblCargo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="lblDireccion" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="lblContrato" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="lblEdad" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="lblSalario" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="lblEspecialidad" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <DatePicker fx:id="lblFechaNacimiento" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#insertarValores" text="Guardar" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cerrar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Button>
+            <Label fx:id="lblAdvertencia" prefHeight="17.0" prefWidth="122.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+         </children>
+      </GridPane>
+      <Text layoutX="140.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese los campos del periodista que desea guardar:" />
+   </children>
+</AnchorPane>
