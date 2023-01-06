@@ -347,6 +347,36 @@ create view art_Revista as
 order by Descripcion_Articulo;
 
 
+drop procedure if exists verificarEstado;
+delimiter $
+create procedure verificarEstado(in codeArt int, out estadoArt TINYINT(1))
+begin
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+	select (select ha.Estado from HistorialArticulo ha where ha.idArticulo = codeArt) into estadoArt;
+end$
+delimiter ;
+
+call verificarEstado(9, @F);
+select @F;
+
+
+delimiter %
+create procedure agregarSeccion(in seccionNueva VARCHAR(45))
+begin
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+	Insert into Seccion(Seccion) values (seccionNueva);
+end%;
+delimiter ;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
