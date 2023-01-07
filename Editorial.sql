@@ -103,7 +103,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `Editorial`.`HistorialArticulo` (
   `idArticulo` INT NOT NULL,
   `Comentario` VARCHAR(200) NOT NULL,
-  `Estado` TINYINT(1) NOT NULL,
+  `Estado` VARCHAR(45) NOT NULL,
   `cedula_Ed` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`idArticulo`, `cedula_Ed`),
   INDEX `fk_HistorialArticulo_Articulo1_idx` (`idArticulo` ASC) VISIBLE,
@@ -264,15 +264,15 @@ insert into editor(cedula_Ed, Nombre, Apellido, Telefono, Direccion, Correo, fec
 ('0927364518', 'Steven', 'Universe', '4758354625', 'Los Ríos y Clemente Ballen',null, '1997-08-10');
 
 insert into historialarticulo values
-(1, 'Listo para adjuntar en su respectiva revista', 1, '0957483647'),
-(2, 'Listo para adjuntar en su respectiva revista', 1, '0957483647'),
-(3, 'Listo para adjuntar en su respectiva revista', 1, '0957483647'),
-(4, 'Listo para adjuntar en su respectiva revista', 1, '0912983746'),
-(5, 'Listo para adjuntar en su respectiva revista', 1, '0912983746'),
-(6, 'Listo para adjuntar en su respectiva revista', 1, '0912983746'),
-(7, 'Listo para adjuntar en su respectiva revista', 1, '0927364518'),
-(8, 'Listo para adjuntar en su respectiva revista', 1, '0927364518'),
-(9, 'Falta más detalles, falta de referencias confiables', 0, '0927364518');
+(1, 'Listo para adjuntar en su respectiva revista', 'True', '0957483647'),
+(2, 'Listo para adjuntar en su respectiva revista', 'True', '0957483647'),
+(3, 'Listo para adjuntar en su respectiva revista', 'True', '0957483647'),
+(4, 'Listo para adjuntar en su respectiva revista', 'True', '0912983746'),
+(5, 'Listo para adjuntar en su respectiva revista', 'True', '0912983746'),
+(6, 'Listo para adjuntar en su respectiva revista', 'True', '0912983746'),
+(7, 'Listo para adjuntar en su respectiva revista', 'True', '0927364518'),
+(8, 'Listo para adjuntar en su respectiva revista', 'True', '0927364518'),
+(9, 'Falta más detalles, falta de referencias confiables', 'False', '0927364518');
 
 insert into diseñador(cedula_Dis, Nombre, Apellido, Telefono, Direccion, Correo, fecha_Nacimiento) values
 ('0947587653', 'Clara', 'Escobar', '2029837489', 'Carchi y Tungurahua','ljennings@espol.edu.ec', '1999-04-01'),
@@ -321,60 +321,63 @@ insert into publicacion(idRevistaInicial, idSeccion, fechaPublicacion) values
 (3,1,'2022-06-03'),
 (4,2,'2022-06-04');
 
-
--- Esta es la view de nombre con titulo de revista y título de seccion
-drop view if exists Titulo_Seccion;
-create view Titulo_Seccion as
- select ri.Titulo as Titulo, ri.Precio as Precio, s.Seccion as Seccion
- from (select ri.Titulo, ri.idRevistaInicial, pu.Precio, pu.idSeccion
-	   from revistainicial ri natural join publicacion pu) ri natural join seccion s
-order by Titulo;
-
--- view que muestra el id, especialidad  con el articulo que escribio/aportó cada autor
-drop view if exists art_Autor;
-create view art_Autor as
-	select aut.Nombre as NombreAutor, aut.Apellido as ApellidoAutor, aut.Especialidad, art.Descripción as Descripcion_Art
-    from (select aut.cedula_Autor, aut.Nombre, aut.Apellido, aut.Especialidad, e.idArticulo
-		  from Autor aut natural join escribe e) aut natural join Articulo art
-order by NombreAutor;
-
--- view que muestra los artículos aprobados y la revista a la que pertenece
-drop view if exists art_Revista;
-create view art_Revista as
-	select art.Descripción as Descripcion_Articulo, ri.Titulo as Titulo_Revista
-    from (select *
-          from Articulo art natural join Aprobacion ap) art natural join revistainicial ri
-order by Descripcion_Articulo;
+drop procedure if exists obtenerEstadoArticulo;
+DELIMITER //
+CREATE PROCEDURE obtenerEstadoArticulo(IN idArticulo INT, OUT estado VARCHAR(255))
+BEGIN
+  -- Ejecutar la consulta y almacenar el resultado
+  SELECT Estado FROM HistorialArticulo WHERE idArticulo = idArticulo INTO @estado;
+  
+  -- Verificar si la consulta devolvió algún resultado
+  IF @estado IS NULL THEN
+    -- Asignar un mensaje al parámetro de salida si el valor no existe en la tabla
+    SET estado = 'El valor proporcionado para idArticulo no se encuentra en la tabla HistorialArticulo';
+  ELSE
+    -- Asignar el Estado al parámetro de salida si se encontró un resultado
+    SET estado = @estado;
+  END IF;
+END //
+DELIMITER ;
 
 
-drop procedure if exists verificarEstado;
-delimiter $
-create procedure verificarEstado(in codeArt int, out estadoArt TINYINT(1))
-begin
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-	BEGIN
-		ROLLBACK;
-		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
-	END;
-	select (select ha.Estado from HistorialArticulo ha where ha.idArticulo = codeArt) into estadoArt;
-end$
-delimiter ;
+DELIMITER //
+CREATE PROCEDURE crearSeccion(IN descripcion VARCHAR(45))
+BEGIN
+  -- Verificar si la sección ya existe
+  SELECT COUNT(*) FROM Seccion WHERE descripcion = descripcion INTO @seccionExiste;
+  
+  -- Si la sección no existe, insertar una nueva fila en la tabla
+  IF @seccionExiste = 0 THEN
+    INSERT INTO Seccion (descripcion) VALUES (descripcion);
+  ELSE
+    -- Si la sección ya existe, mostrar un mensaje de error
+    SELECT 'La sección ya existe';
+  END IF;
+END //
+DELIMITER ;
 
-call verificarEstado(9, @F);
-select @F;
-
-
-delimiter %
-create procedure agregarSeccion(in seccionNueva VARCHAR(45))
-begin
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION
-	BEGIN
-		ROLLBACK;
-		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
-	END;
-	Insert into Seccion(Seccion) values (seccionNueva);
-end%;
-delimiter ;
+DELIMITER $$
+START TRANSACTION;
+-- Verificar si ya existe un autor con la misma cédula
+SELECT COUNT(*) INTO @count FROM Autor WHERE cedula_Autor = cedula_Autor;
+-- Insertar el nuevo autor si no existe otro con la misma cédula
+IF (@count = 0) THEN
+  INSERT INTO Autor (cedula_Autor, Nombre, Apellido, Telefono, Direccion, Correo, fecha_Nacimiento, Especialidad, Salario)
+  VALUES (cedula_Autor, Nombre, Apellido, Telefono, Direccion, Correo, fecha_Nacimiento, Especialidad, Salario);
+ELSE
+  -- Mostrar un mensaje de error
+  SELECT 'Ya existe un autor con la cédula proporcionada' AS 'Error';
+END IF;
+-- Verificar si la operación falló
+IF (ERROR CONDITION) THEN
+  -- Deshacer la operación y terminar la transacción
+  ROLLBACK;
+ELSE
+  -- Confirmar la operación y terminar la transacción
+  COMMIT;
+END IF;
+end $$
+DELIMITER ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
