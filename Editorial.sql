@@ -321,12 +321,14 @@ insert into publicacion(idRevistaInicial, idSeccion, fechaPublicacion) values
 (3,1,'2022-06-03'),
 (4,2,'2022-06-04');
 
-drop procedure if exists obtenerEstadoArticulo;
+#drop procedure if exists obtenerEstadoArticulo;
 DELIMITER //
-CREATE PROCEDURE obtenerEstadoArticulo(IN idArticulo INT, OUT estado VARCHAR(255))
+CREATE PROCEDURE obtenerEstadoArticulo(IN idIngresado INT, OUT estado VARCHAR(255), out articulo VARCHAR(255))
 BEGIN
   -- Ejecutar la consulta y almacenar el resultado
-  SELECT Estado FROM HistorialArticulo WHERE idArticulo = idArticulo INTO @estado;
+  SELECT h.Estado FROM HistorialArticulo h WHERE h.idArticulo = idIngresado INTO @estado;
+  SELECT a.Descripción FROM HistorialArticulo h natural join Articulo a WHERE h.idArticulo = idIngresado INTO @articulo;
+
   
   -- Verificar si la consulta devolvió algún resultado
   IF @estado IS NULL THEN
@@ -335,20 +337,21 @@ BEGIN
   ELSE
     -- Asignar el Estado al parámetro de salida si se encontró un resultado
     SET estado = @estado;
+    SET articulo= @articulo;
   END IF;
 END //
 DELIMITER ;
 
-
+#drop procedure crearSeccion;
 DELIMITER //
-CREATE PROCEDURE crearSeccion(IN descripcion VARCHAR(45))
+CREATE PROCEDURE crearSeccion(IN nueva_sección VARCHAR(45))
 BEGIN
   -- Verificar si la sección ya existe
-  SELECT COUNT(*) FROM Seccion WHERE descripcion = descripcion INTO @seccionExiste;
+  SELECT COUNT(*) FROM Seccion WHERE Seccion = nueva_sección INTO @seccionExiste;
   
   -- Si la sección no existe, insertar una nueva fila en la tabla
   IF @seccionExiste = 0 THEN
-    INSERT INTO Seccion (descripcion) VALUES (descripcion);
+    INSERT INTO Seccion (Seccion) VALUES (nueva_sección);
   ELSE
     -- Si la sección ya existe, mostrar un mensaje de error
     SELECT 'La sección ya existe';
