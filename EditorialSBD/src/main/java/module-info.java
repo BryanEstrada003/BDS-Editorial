@@ -7,4 +7,5 @@ module com.mycompany.editorialsbd {
     requires java.logging;
     opens com.mycompany.editorialsbd to javafx.fxml;
     exports com.mycompany.editorialsbd;
+    opens Clases;
 }

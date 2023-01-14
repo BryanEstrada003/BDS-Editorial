@@ -10,11 +10,11 @@ package Clases;
  */
 public class Seccion {
     private int idSeccion;
-    private String Seccion;
+    private String seccion;
 
-    public Seccion(int idSeccion, String Seccion) {
+    public Seccion(int idSeccion, String seccion) {
         this.idSeccion = idSeccion;
-        this.Seccion = Seccion;
+        this.seccion = seccion;
     }
 
     public int getIdSeccion() {
@@ -22,22 +22,14 @@ public class Seccion {
     }
 
     public String getSeccion() {
-        return Seccion;
+        return seccion;
     }
 
     public void setIdSeccion(int idSeccion) {
         this.idSeccion = idSeccion;
     }
 
-    public void setSeccion(String Seccion) {
-        this.Seccion = Seccion;
-    }
-
-    @Override
-    public String toString() {
-        return "Seccion{" + "idSeccion=" + idSeccion + ", Seccion=" + Seccion + '}';
-    }
-    
-    
-    
+    public void setSeccion(String seccion) {
+        this.seccion = seccion;
+    }  
 }

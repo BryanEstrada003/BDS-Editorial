@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="30.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.editorialsbd.InicioController">
+   <children>
+      <Label text="EDITORIAL S.A">
+         <font>
+            <Font name="System Bold Italic" size="54.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" onAction="#estadoArticulo" text="Consultar estado de artículos" />
+      <Button mnemonicParsing="false" onAction="#nuevaSeccion" text="Ingresar nueva sección" />
+      <Button mnemonicParsing="false" onAction="#nuevoAutor" text="Ingresar nuevo autor" />
+   </children>
+</VBox>

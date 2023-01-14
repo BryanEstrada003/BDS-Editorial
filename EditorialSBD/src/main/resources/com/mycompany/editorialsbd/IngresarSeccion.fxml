@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="529.0" spacing="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.editorialsbd.IngresarSeccionController">
+   <children>
+      <Label text="Ingrese una nueva sección">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <HBox alignment="TOP_CENTER" prefHeight="38.0" prefWidth="400.0" spacing="10.0">
+         <children>
+            <Label text="Ingrese la nueva sección" />
+            <TextField fx:id="txtseccion" prefHeight="25.0" prefWidth="172.0" />
+            <Button mnemonicParsing="false" onAction="#registrarSeccion" text="Registrar" />
+         </children>
+      </HBox>
+      <VBox fx:id="contenedor" prefHeight="50.0" prefWidth="499.0" spacing="10.0" />
+      <TableView fx:id="tablaSeccion" prefHeight="141.0" prefWidth="395.0">
+        <columns>
+          <TableColumn fx:id="idSeccionColumna" prefWidth="75.0" text="idSeccion" />
+          <TableColumn fx:id="SeccionColumna" prefWidth="423.0" text="Seccion" />
+        </columns>
+      </TableView>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+   </padding>
+</VBox>
