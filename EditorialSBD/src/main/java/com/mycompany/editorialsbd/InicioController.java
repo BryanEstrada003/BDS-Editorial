@@ -79,6 +79,21 @@ public class InicioController implements Initializable {
 
     @FXML
     private void nuevoAutor(ActionEvent event) {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("IngresarAutor.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException ex) {
+            VBox root = new VBox(new Label("Lo sentimos, tuvimos problemas con la app :c"));
+            root.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        }
     }
     
 }

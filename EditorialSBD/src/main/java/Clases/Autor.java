@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import java.util.Date;
+
 /**
  *
  * @author USER
@@ -15,13 +17,13 @@ public class Autor {
     private String telefono;
     private String direccion;
     private String correo;
-    private String fechaNacimiento;
+    private Date fechaNacimiento;
     private String especialidad;
     private float salario;
     
     //CONSTRUCTOR
     
-    public Autor(String cedula, String nombre, String apellido, String telefono, String direccion, String correo, String fechaNacimiento, String especialidad, float salario) {
+    public Autor(String cedula, String nombre, String apellido, String telefono, String direccion, String correo, Date fechaNacimiento, String especialidad, float salario) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -59,7 +61,7 @@ public class Autor {
         return correo;
     }
 
-    public String getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -97,7 +99,7 @@ public class Autor {
         this.correo = correo;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

@@ -55,8 +55,9 @@ public class IngresarSeccionController implements Initializable {
     private void registrarSeccion(ActionEvent event) {
         contenedor.getChildren().clear();
         try {
+            if(txtseccion.getText().trim().length()!=0){
             contenedor.getChildren().clear();
-            CrearSeccion cs= new CrearSeccion(txtseccion.getText());
+            CrearSeccion cs= new CrearSeccion(txtseccion.getText().trim());
             Label lblmensaje= new Label(cs.getMsm());
             contenedor.getChildren().add(lblmensaje);
             contenedor.getChildren().add(new Label("SECCIONES REGISTRADAS:"));
@@ -68,7 +69,10 @@ public class IngresarSeccionController implements Initializable {
             tablaSeccion.setItems(datosTabla);
             idSeccionColumna.setCellValueFactory(new PropertyValueFactory<>("idSeccion"));
             SeccionColumna.setCellValueFactory(new PropertyValueFactory<>("seccion"));
-
+            }else{
+                contenedor.getChildren().clear();
+                contenedor.getChildren().addAll(new Label("Todos los campos deben de ser llenados"));
+            }
         } catch (SQLException ex) {
             contenedor.getChildren().clear();
             contenedor.getChildren().addAll(new Label("se cayo :c"));

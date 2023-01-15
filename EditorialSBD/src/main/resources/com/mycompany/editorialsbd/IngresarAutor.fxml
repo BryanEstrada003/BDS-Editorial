@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="607.0" spacing="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.editorialsbd.IngresarSeccionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="935.0" spacing="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.editorialsbd.IngresarAutorController">
    <children>
       <Label text="Ingrese un nuevo Autor/ra">
          <font>
@@ -23,65 +23,72 @@
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su cédula" />
-                  <TextField fx:id="txtseccion" prefHeight="25.0" prefWidth="172.0" />
+                  <TextField fx:id="cedula" prefHeight="25.0" prefWidth="172.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su primer nombre" />
-                  <TextField fx:id="txtseccion1" prefHeight="25.0" prefWidth="172.0" />
+                  <TextField fx:id="nombre" prefHeight="25.0" prefWidth="172.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su primer apellido" />
-                  <TextField fx:id="txtseccion2" prefHeight="25.0" prefWidth="172.0" />
+                  <TextField fx:id="apellido" prefHeight="25.0" prefWidth="172.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su teléfono" />
-                  <TextField fx:id="txtseccion3" prefHeight="25.0" prefWidth="172.0" />
+                  <TextField fx:id="telefono" prefHeight="25.0" prefWidth="172.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su dirección" />
-                  <TextField fx:id="txtseccion4" prefHeight="25.0" prefWidth="172.0" />
+                  <TextField fx:id="direccion" prefHeight="25.0" prefWidth="172.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su correo" />
-                  <TextField fx:id="txtseccion41" prefHeight="25.0" prefWidth="172.0" />
+                  <TextField fx:id="email" prefHeight="25.0" prefWidth="172.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su fecha de nacimiento" />
-                  <DatePicker />
+                  <DatePicker fx:id="fechaNac" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su especialidad" />
-                  <TextField fx:id="txtseccion43" prefHeight="25.0" prefWidth="172.0" />
+                  <TextField fx:id="especialidad" prefHeight="25.0" prefWidth="172.0" />
                </children>
             </HBox>
             <HBox prefHeight="38.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Label text="Ingrese su salario" />
-                  <TextField fx:id="txtseccion44" prefHeight="25.0" prefWidth="172.0" />
-                  <Button mnemonicParsing="false" text="Registrar" />
+                  <TextField fx:id="salario" prefHeight="25.0" prefWidth="172.0" />
+                  <Button mnemonicParsing="false" onAction="#registrarAutor" text="Registrar" />
                </children>
             </HBox>
          </children>
       </VBox>
       <VBox fx:id="contenedor" prefHeight="50.0" prefWidth="499.0" spacing="10.0" />
-      <TableView fx:id="tablaSeccion" prefHeight="141.0" prefWidth="395.0">
+      <TableView fx:id="TablaAutor" prefHeight="141.0" prefWidth="395.0">
         <columns>
-          <TableColumn fx:id="idSeccionColumna" prefWidth="75.0" text="idSeccion" />
-          <TableColumn fx:id="SeccionColumna" prefWidth="423.0" text="Seccion" />
+          <TableColumn fx:id="CedulaColumn" prefWidth="75.0" text="Cedula" />
+          <TableColumn fx:id="NombreColumn" prefWidth="99.0" text="Nombre" />
+            <TableColumn fx:id="ApellidoColumn" prefWidth="99.0" text="Apellido" />
+            <TableColumn fx:id="TelefonoColumn" prefWidth="99.0" text="Telefono" />
+            <TableColumn fx:id="DireccionColumn" prefWidth="99.0" text="Direccion" />
+            <TableColumn fx:id="CorreoColumn" prefWidth="99.0" text="Correo" />
+            <TableColumn fx:id="FNColumn" prefWidth="133.0" text="Fecha de Nacimiento" />
+            <TableColumn fx:id="EspecialidadColumn" prefWidth="98.0" text="Especialidad" />
+            <TableColumn fx:id="SalarioColumn" prefWidth="103.0" text="Salario" />
         </columns>
       </TableView>
    </children>

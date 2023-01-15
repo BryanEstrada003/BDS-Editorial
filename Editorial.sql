@@ -334,45 +334,54 @@ BEGIN
   SELECT h.Estado FROM HistorialArticulo h WHERE h.idArticulo = idIngresado INTO @state;
   SELECT a.Descripción FROM HistorialArticulo h natural join Articulo a WHERE h.idArticulo = idIngresado INTO @art;
 
-  
-  -- Verificar si la consulta devolvió algún resultado
-  IF @state IS NULL THEN
-    -- Asignar un mensaje al parámetro de salida si el valor no existe en la tabla
-    SET estado = 'El valor proporcionado para idArticulo no se encuentra en la tabla HistorialArticulo';
-    set articulo=null;
-  ELSE
-    -- Asignar el Estado al parámetro de salida si se encontró un resultado
-    SET estado = @state;
-    SET articulo= @art;
-  END IF;
+  if idIngresado is null then
+	SET estado = 'Todos los campos son obligatorios';
+  else
+	  -- Verificar si la consulta devolvió algún resultado
+	  IF @state IS NULL THEN
+		-- Asignar un mensaje al parámetro de salida si el valor no existe en la tabla
+		SET estado = 'El valor proporcionado para idArticulo no se encuentra en la tabla HistorialArticulo';
+		set articulo=null;
+	  ELSE
+		-- Asignar el Estado al parámetro de salida si se encontró un resultado
+		SET estado = @state;
+		SET articulo= @art;
+	  END IF;
+	end if;
 END //
 DELIMITER ;
 
 #drop procedure crearSeccion;
 DELIMITER //
-CREATE PROCEDURE CrearSeccion(IN nueva_sección VARCHAR(45), out mensaje varchar(50))
+CREATE PROCEDURE CrearSeccion(IN nueva_seccion VARCHAR(45), out mensaje varchar(50))
 BEGIN
   declare exito int;
   declare seccionExiste int;
   START TRANSACTION;
   set exito=0;
   -- Verificar si la sección ya existe
-  SELECT COUNT(*) FROM Seccion WHERE Seccion = nueva_sección INTO @seccionExiste;
+  SELECT COUNT(*) FROM Seccion WHERE Seccion = nueva_seccion INTO @seccionExiste;
   
   -- Si la sección no existe, insertar una nueva fila en la tabla
-  IF @seccionExiste = 0 THEN
-    INSERT INTO Seccion (Seccion) VALUES (nueva_sección);
-    select *
-    from Seccion;
-    set exito = 1;
-  END IF;
-  if exito = 1 then
-		commit;
+  if nueva_seccion is null then
+	rollback;
+	SET mensaje = "Todos los campos son obligatorios";
+    
+  else
+	  IF @seccionExiste = 0 THEN
+		INSERT INTO Seccion (Seccion) VALUES (nueva_seccion);
+		select *
+		from Seccion;
+		set exito = 1;
+	  END IF;
+	  if exito = 1 then
 		set mensaje='Proceso ejecutado correctamente';
-  else 
-		rollback;
+		commit;
+	  else 
 		set mensaje= 'La sección ya está creada';
-  end if;
+		rollback;
+	  end if;
+	end if;
 END //
 DELIMITER ;
 
@@ -392,34 +401,40 @@ BEGIN
 	declare exito int;
 	declare count int;
 	START TRANSACTION;
-	set exito=0;
-	IF (YEAR(fnAutor) BETWEEN 1960 AND 2003) THEN
-		-- Verificar si ya existe un autor con la misma cédula
-		SELECT COUNT(*) INTO @count FROM Autor WHERE cedula_Autor = cedAutor;
-		-- Insertar el nuevo autor si no existe otro con la misma cédula
-		IF (@count = 0) THEN
-			INSERT INTO Autor (cedula_Autor, Nombre, Apellido, Telefono, Direccion, Correo, fecha_Nacimiento, Especialidad, Salario)
-			VALUES (cedAutor, nomAutor, apellAutor, tlfAutor, direcAutor, correoAutor, fnAutor, espAutor, salarioAutor);
-			select *
-			from Autor;
-			set exito = 1;
+    IF cedAutor IS NULL OR nomAutor IS NULL OR apellAutor IS NULL OR tlfAutor IS NULL OR 
+    direcAutor IS NULL OR correoAutor IS NULL OR fnAutor IS NULL OR espAutor IS NULL OR salarioAutor IS NULL THEN
+		SET mensaje = "Todos los campos son obligatorios";
+        rollback;
+        
+	ELSE 
+		IF (YEAR(fnAutor) BETWEEN 1960 AND 2003) THEN
+			-- Verificar si ya existe un autor con la misma cédula
+			SELECT COUNT(*) INTO @count FROM Autor WHERE cedula_Autor = cedAutor;
+			-- Insertar el nuevo autor si no existe otro con la misma cédula
+			IF (@count = 0) THEN
+				INSERT INTO Autor (cedula_Autor, Nombre, Apellido, Telefono, Direccion, Correo, fecha_Nacimiento, Especialidad, Salario)
+				VALUES (cedAutor, nomAutor, apellAutor, tlfAutor, direcAutor, correoAutor, fnAutor, espAutor, salarioAutor);
+				select *
+				from Autor;
+				set mensaje='Proceso ejecutado correctamente';
+                commit;
+			ELSE
+				set mensaje = 'El autor ya está registrado';
+                rollback;
+			END IF;
 		ELSE
-			set mensaje = 'El autor ya está registrado';
-		END IF;
-	ELSE
-		-- Mostrar un mensaje de error
-		SET mensaje = 'La fecha de nacimiento no es válida';
-		END IF;
-	if exito = 1 then
-		commit;
-		set mensaje='Proceso ejecutado correctamente';
-	else
-	rollback;
-    
+			-- Mostrar un mensaje de error
+			SET mensaje = 'La fecha de nacimiento no es válida';
+            rollback;
+			END IF;
 	end if;
 END $$
 DELIMITER ;
 
+/**
+CALL InsertarAutor(null, 'Juan', 'Pérez', '555-5555', 'Calle 123', 'juanperez@ejemplo.com', '1980-01-01', 'Literatura', 2500.00, @mensaje);
+SELECT @mensaje;
+**/
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
