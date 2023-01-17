@@ -23,7 +23,6 @@ public class InsertarAutor {
             String tlfAutor, 
             String direcAutor, 
             String correoAutor, 
-            Date fnAutor, 
             String espAutor, 
             float salarioAutor) throws SQLException{
         Conexion cn = new Conexion();
@@ -37,12 +36,11 @@ public class InsertarAutor {
         myStmt.setString(4, tlfAutor);
         myStmt.setString(5, direcAutor);
         myStmt.setString(6, correoAutor);
-        myStmt.setDate(7, fnAutor);
-        myStmt.setString(8, espAutor);
-        myStmt.setFloat(9, salarioAutor);      
+        myStmt.setString(7, espAutor);
+        myStmt.setFloat(8, salarioAutor);      
         myStmt.execute();
         myRs=myStmt.getResultSet();
-        msm=myStmt.getString(10);
+        msm=myStmt.getString(9);
         autores=display(myRs);
         
         cn.desconectar();
@@ -57,7 +55,6 @@ public class InsertarAutor {
             String telfAutor = myRs.getString("Telefono");
             String dirAutor = myRs.getString("Direccion");
             String corrAutor = myRs.getString("Correo"); 
-            Date fechaNacAutor = myRs.getDate("fecha_Nacimiento");
             String especAutor = myRs.getString("Especialidad");
             float salarioAutor = myRs.getFloat("Salario");
             Autor a= new Autor(cedulaAutor,
@@ -66,7 +63,6 @@ public class InsertarAutor {
                                 telfAutor,
                                 dirAutor,
                                 corrAutor,
-                                fechaNacAutor,
                                 especAutor,
                                 salarioAutor);
             autoresRegistradas.add(a);

@@ -55,7 +55,7 @@ public class IngresarSeccionController implements Initializable {
     private void registrarSeccion(ActionEvent event) {
         contenedor.getChildren().clear();
         try {
-            if(txtseccion.getText().trim().length()!=0){
+            if(txtseccion.getText().trim().length()!=0  || txtseccion.getText().trim().length() > 45){
             contenedor.getChildren().clear();
             CrearSeccion cs= new CrearSeccion(txtseccion.getText().trim());
             Label lblmensaje= new Label(cs.getMsm());
@@ -71,7 +71,7 @@ public class IngresarSeccionController implements Initializable {
             SeccionColumna.setCellValueFactory(new PropertyValueFactory<>("seccion"));
             }else{
                 contenedor.getChildren().clear();
-                contenedor.getChildren().addAll(new Label("Todos los campos deben de ser llenados"));
+                contenedor.getChildren().addAll(new Label("Todos los campos deben de ser llenados o tiene que ser mayor que 45"));
             }
         } catch (SQLException ex) {
             contenedor.getChildren().clear();

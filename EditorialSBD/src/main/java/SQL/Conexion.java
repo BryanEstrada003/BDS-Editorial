@@ -22,7 +22,7 @@ public class Conexion {
         
         String url="jdbc:mysql://localhost/editorial";
         String user="root";
-        String pass="root";
+        String pass="carlos08052002@";
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

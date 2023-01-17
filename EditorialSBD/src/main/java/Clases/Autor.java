@@ -4,7 +4,7 @@
  */
 package Clases;
 
-import java.util.Date;
+
 
 /**
  *
@@ -17,24 +17,23 @@ public class Autor {
     private String telefono;
     private String direccion;
     private String correo;
-    private Date fechaNacimiento;
     private String especialidad;
     private float salario;
     
     //CONSTRUCTOR
     
-    public Autor(String cedula, String nombre, String apellido, String telefono, String direccion, String correo, Date fechaNacimiento, String especialidad, float salario) {
+    public Autor(String cedula, String nombre, String apellido, String telefono, String direccion, String correo , String especialidad, float salario) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.direccion = direccion;
         this.correo = correo;
-        this.fechaNacimiento = fechaNacimiento;
         this.especialidad = especialidad;
         this.salario = salario;
     }
-    
+
+   
     //GETTERS
     
     public String getCedula() {
@@ -61,9 +60,6 @@ public class Autor {
         return correo;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
 
     public String getEspecialidad() {
         return especialidad;
@@ -99,9 +95,7 @@ public class Autor {
         this.correo = correo;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+  
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
@@ -111,11 +105,7 @@ public class Autor {
         this.salario = salario;
     }
 
-    @Override
-    public String toString() {
-        return "Autor{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", direccion=" + direccion + ", correo=" + correo + ", fechaNacimiento=" + fechaNacimiento + ", especialidad=" + especialidad + ", salario=" + salario + '}';
-    }
-    
+ 
        
     
 }
