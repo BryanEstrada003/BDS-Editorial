@@ -385,12 +385,12 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE InsertarAutor(
 IN cedAutor VARCHAR(10),
-IN nomAutor VARCHAR(50),
-IN apellAutor VARCHAR(50),
-IN tlfAutor VARCHAR(20),
+IN nomAutor VARCHAR(30),
+IN apellAutor VARCHAR(45),
+IN tlfAutor VARCHAR(10),
 IN direcAutor VARCHAR(100),
-IN correoAutor VARCHAR(50),
-IN espAutor VARCHAR(50),
+IN correoAutor VARCHAR(128),
+IN espAutor VARCHAR(30),
 IN salarioAutor FLOAT,
 out mensaje varchar(50))
 BEGIN

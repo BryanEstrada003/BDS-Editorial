@@ -27,9 +27,7 @@ public class InsertarAutor {
             float salarioAutor) throws SQLException{
         Conexion cn = new Conexion();
         cn.conectar();
-        CallableStatement myStmt=null;
-        ResultSet myRs=null;
-        myStmt=cn.getCn().prepareCall("{call InsertarAutor(?,?,?,?,?,?,?,?,?)}");
+        CallableStatement myStmt=cn.getCn().prepareCall("{call InsertarAutor(?,?,?,?,?,?,?,?,?)}");
         myStmt.setString(1, cedAutor);
         myStmt.setString(2, nomAutor);
         myStmt.setString(3, apellAutor);
@@ -39,7 +37,7 @@ public class InsertarAutor {
         myStmt.setString(7, espAutor);
         myStmt.setFloat(8, salarioAutor);      
         myStmt.execute();
-        myRs=myStmt.getResultSet();
+        ResultSet myRs=myStmt.getResultSet();
         msm=myStmt.getString(9);
         autores=display(myRs);
         

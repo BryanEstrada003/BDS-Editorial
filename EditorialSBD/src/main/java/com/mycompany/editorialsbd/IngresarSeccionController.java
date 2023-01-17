@@ -55,23 +55,23 @@ public class IngresarSeccionController implements Initializable {
     private void registrarSeccion(ActionEvent event) {
         contenedor.getChildren().clear();
         try {
-            if(txtseccion.getText().trim().length()!=0  || txtseccion.getText().trim().length() > 45){
-            contenedor.getChildren().clear();
-            CrearSeccion cs= new CrearSeccion(txtseccion.getText().trim());
-            Label lblmensaje= new Label(cs.getMsm());
-            contenedor.getChildren().add(lblmensaje);
-            contenedor.getChildren().add(new Label("SECCIONES REGISTRADAS:"));
-            ArrayList<Seccion> secciones = cs.getSecciones();
-            ObservableList<Seccion> datosTabla = FXCollections.observableArrayList();
-            for (Seccion s:secciones){                            
-                datosTabla.add(s);
-            }
-            tablaSeccion.setItems(datosTabla);
-            idSeccionColumna.setCellValueFactory(new PropertyValueFactory<>("idSeccion"));
-            SeccionColumna.setCellValueFactory(new PropertyValueFactory<>("seccion"));
+            if(txtseccion.getText().trim().length()!=0  && txtseccion.getText().trim().length() <= 45){
+                contenedor.getChildren().clear();
+                CrearSeccion cs= new CrearSeccion(txtseccion.getText().trim());
+                Label lblmensaje= new Label(cs.getMsm());
+                contenedor.getChildren().add(lblmensaje);
+                contenedor.getChildren().add(new Label("SECCIONES REGISTRADAS:"));
+                ArrayList<Seccion> secciones = cs.getSecciones();
+                ObservableList<Seccion> datosTabla = FXCollections.observableArrayList();
+                for (Seccion s:secciones){                            
+                    datosTabla.add(s);
+                }
+                tablaSeccion.setItems(datosTabla);
+                idSeccionColumna.setCellValueFactory(new PropertyValueFactory<>("idSeccion"));
+                SeccionColumna.setCellValueFactory(new PropertyValueFactory<>("seccion"));
             }else{
                 contenedor.getChildren().clear();
-                contenedor.getChildren().addAll(new Label("Todos los campos deben de ser llenados o tiene que ser mayor que 45"));
+                contenedor.getChildren().addAll(new Label("Todos los campos deben de ser llenados o excedio la cantidad de caracteres permitidos (max 45 caracteres)"));
             }
         } catch (SQLException ex) {
             contenedor.getChildren().clear();
@@ -80,6 +80,7 @@ public class IngresarSeccionController implements Initializable {
             contenedor.getChildren().clear();
             contenedor.getChildren().addAll(new Label("ya está dentro del database"));
         }
+        txtseccion.clear();
     }
 
 }
