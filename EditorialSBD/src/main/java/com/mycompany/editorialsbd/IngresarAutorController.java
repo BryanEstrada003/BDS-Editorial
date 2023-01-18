@@ -117,7 +117,7 @@ public class IngresarAutorController implements Initializable {
 
                 } catch (SQLException ex) {
                     contenedor.getChildren().clear();
-                    contenedor.getChildren().addAll(new Label("se cayo la hvd de sql"));
+                    contenedor.getChildren().addAll(new Label("se cayó la base de datos"));
                     System.out.println(ex.getMessage());
                     System.out.println(ex.getLocalizedMessage());
                     System.out.println(ex.getStackTrace());
